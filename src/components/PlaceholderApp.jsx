@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ListGroup, Badge, Container, Row, Col } from 'react-bootstrap';
 
 export default function PlaceholderApp() {
@@ -30,10 +30,12 @@ export default function PlaceholderApp() {
                 <ListGroup.Item
                   as="li"
                   className="d-flex justify-content-between align-items-start"
+                  key={post.id}
                 >
                   <div className="ms-2 me-auto">
-                    <div className="fw-bold">Subheading</div>
-                    Cras justo odio
+                    <div className="fw-bold">{post.title}</div>
+
+                    {post.body}
                   </div>
                 </ListGroup.Item>
               );
