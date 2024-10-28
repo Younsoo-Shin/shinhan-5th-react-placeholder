@@ -1,48 +1,50 @@
-import React from 'react';
-import { ListGroup, Badge } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
+import { useState } from 'react';
+import { ListGroup, Badge, Container, Row, Col } from 'react-bootstrap';
 
 export default function PlaceholderApp() {
+  // 요청보내기1. js: fetch,
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    fetch(url, {
+      method: 'GET',
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setPostList(data);
+      });
+  }, []);
+
   return (
-    <Container>
-      <ListGroup as="ol" numbered>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <Badge bg="primary" pill>
-            14
-          </Badge>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <Badge bg="primary" pill>
-            14
-          </Badge>
-        </ListGroup.Item>
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start"
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">Subheading</div>
-            Cras justo odio
-          </div>
-          <Badge bg="primary" pill>
-            14
-          </Badge>
-        </ListGroup.Item>
-      </ListGroup>
+    <Container className="my-5 py-3">
+      <Row>
+        <Col xs={12} md={6}>
+          <h1>게시글 리스트</h1>
+
+          <ListGroup as="ol" numbered>
+            {postList.map((post) => {
+              return (
+                <ListGroup.Item
+                  as="li"
+                  className="d-flex justify-content-between align-items-start"
+                >
+                  <div className="ms-2 me-auto">
+                    <div className="fw-bold">Subheading</div>
+                    Cras justo odio
+                  </div>
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        </Col>
+
+        <Col xs={12} md={6}>
+          <h1></h1>
+        </Col>
+      </Row>
     </Container>
   );
 }
